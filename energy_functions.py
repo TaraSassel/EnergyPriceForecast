@@ -69,21 +69,21 @@ def add_datetime_features(df, datetime_col='datetime'):
     df['hour'] = df.index.hour  # 1–24
     return df
 
+def sin_transformer(column, period):
+    return FunctionTransformer(lambda df: np.sin(df[[column]] / period * 2 * np.pi), feature_names_out=f"{column}_sin")
 
-def sin_transformer(period):
-	return FunctionTransformer(lambda x: np.sin(x / period * 2 * np.pi))
 
-
-def cos_transformer(period):
-	return FunctionTransformer(lambda x: np.cos(x / period * 2 * np.pi))
-
+def cos_transformer(column, period):
+    return FunctionTransformer(lambda df: np.cos(df[[column]] / period * 2 * np.pi), feature_names_out=f"{column}_cos")
 
 def encode_datetime(feature_df):
-    feature_df["month_sin"] = sin_transformer(12).fit_transform(feature_df)["month"]
-    feature_df["month_cos"] = cos_transformer(12).fit_transform(feature_df)["month"]
-    feature_df["day_sin"] = sin_transformer(7).fit_transform(feature_df)["day_of_week"]
-    feature_df["day_cos"] = cos_transformer(7).fit_transform(feature_df)["day_of_week"]
-    feature_df["hour_sin"] = sin_transformer(24).fit_transform(feature_df)["hour"]
-    feature_df["hour_cos"] = cos_transformer(24).fit_transform(feature_df)["hour"]
+    feature_df["month_sin"] = sin_transformer("month", 12).fit_transform(feature_df)
+    feature_df["month_cos"] = cos_transformer("month", 12).fit_transform(feature_df)
     
+    feature_df["day_sin"] = sin_transformer("day_of_week", 7).fit_transform(feature_df)
+    feature_df["day_cos"] = cos_transformer("day_of_week", 7).fit_transform(feature_df)
+    
+    feature_df["hour_sin"] = sin_transformer("hour", 24).fit_transform(feature_df)
+    feature_df["hour_cos"] = cos_transformer("hour", 24).fit_transform(feature_df)
+
     return feature_df
