@@ -70,11 +70,10 @@ def add_datetime_features(df, datetime_col='datetime'):
     return df
 
 def sin_transformer(column, period):
-    return FunctionTransformer(lambda df: np.sin(df[[column]] / period * 2 * np.pi), feature_names_out=f"{column}_sin")
-
+    return FunctionTransformer(lambda df: np.sin(df[[column]] / period * 2 * np.pi))
 
 def cos_transformer(column, period):
-    return FunctionTransformer(lambda df: np.cos(df[[column]] / period * 2 * np.pi), feature_names_out=f"{column}_cos")
+    return FunctionTransformer(lambda df: np.cos(df[[column]] / period * 2 * np.pi))
 
 def encode_datetime(feature_df):
     feature_df["month_sin"] = sin_transformer("month", 12).fit_transform(feature_df)
