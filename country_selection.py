@@ -33,7 +33,7 @@ def select_country():
     covered_countries = country_df.Country.to_list()
     country_coverage = pd.DataFrame(europe['ADMIN'])
     country_coverage['coverage'] = country_coverage['ADMIN'].apply(
-        lambda x: 1 if x in covered_countries else 0.1
+        lambda x: 1 if x in covered_countries else 0
     )
     country_coverage.loc[country_coverage['ADMIN'] == selected_country, 'coverage'] = 2
     europe = europe.merge(country_coverage, on= "ADMIN", how='left')
