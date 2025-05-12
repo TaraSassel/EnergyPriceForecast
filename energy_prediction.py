@@ -27,7 +27,7 @@ def predict_energy(selected_country_df):
     # Getting price data
     yesterday = '2025-05-08'
     last_week = '2025-05-08'
-    print(last_week)
+ 
     api_url = f"https://api.energy-charts.info/price?bzn={zone}&start={last_week}&end={yesterday}"
     price = parse_energy_api(api_url)
 
@@ -41,7 +41,7 @@ def predict_energy(selected_country_df):
     for production_type in production_types:
         api_url = f"https://api.energy-charts.info/public_power_forecast?country=de&production_type={production_type}&forecast_type=day-ahead"
         public_power_forecast = parse_energy_api(api_url)
-        print(production_type)
+
         if production_type == 'solar':
             public_power_forecast = public_power_forecast.rename(columns={"forecast_values": f"{production_type}"})
             forecasts = public_power_forecast.copy()
@@ -54,11 +54,15 @@ def predict_energy(selected_country_df):
     # forecasts = forecasts[forecasts.index.minute == 0]
     forecasts = add_datetime_features(forecasts, datetime_col='datetime')
     forecasts = encode_datetime(forecasts)
+    forecasts["Source"] = "Predicted"
 
     # Considering pubilic power at full hours
     public_power = public_power[public_power.index.minute == 0]
     public_power = add_datetime_features(public_power, datetime_col='datetime')
     public_power = encode_datetime(public_power)
+    public_power["Source"] = "Measured"
+
+    renewable_df = pd.concat([public_power, forecasts])
 
     # Loading model
     file_name = f"./models/xgb_reg_{zone}.pkl"
@@ -81,7 +85,7 @@ def predict_energy(selected_country_df):
 
     combined = combined.reset_index()
 
-    return combined
+    return combined, renewable_df
 
 def create_prediction_plot(combined, selected_country_df):
     print(combined.head())
@@ -142,4 +146,3 @@ def create_prediction_plot(combined, selected_country_df):
 
     # Display the chart in Streamlit
     st.altair_chart(chart, use_container_width=True)
-    st.text("*Should not be considered financial advice")
