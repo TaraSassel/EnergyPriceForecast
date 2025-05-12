@@ -25,6 +25,9 @@ def predict_energy(selected_country_df):
     next_week = (datetime.today() + timedelta(days=7)).strftime('%Y-%m-%d')
 
     # Getting price data
+    yesterday = '2025-05-08'
+    last_week = '2025-05-08'
+    print(last_week)
     api_url = f"https://api.energy-charts.info/price?bzn={zone}&start={last_week}&end={yesterday}"
     price = parse_energy_api(api_url)
 

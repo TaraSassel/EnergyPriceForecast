@@ -9,9 +9,9 @@ import pandas as pd
 from io import BytesIO
 
 COUNTRY_DATA = {
-    'Country': ["Netherlands", "Belgium", "France"], # "Germany"
-    'Zone': ['NL', 'BE', "FR"], #De-LU
-    'Forecast': ['nl', 'be', 'fr']
+    'Country': ["Germany", "Netherlands", "Belgium", "France"],
+    'Zone': ['DE-LU', 'NL', 'BE', "FR"],
+    'Forecast': ['de','nl', 'be', 'fr']
 }
 
 FILE_PATH = './ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp'
