@@ -24,9 +24,9 @@ def create_renewables_plot(df):
         "Predicted Wind Offshore": "darkred",
     }
 
-    chart = alt.Chart(df_long).mark_bar().encode(
+    chart = alt.Chart(df_long).mark_area(opacity=0.5).encode(
         x=alt.X('datetime:T', title='Datetime'),
-        y=alt.Y('Value:Q', title='Energy (MW)'),
+        y=alt.Y('Value:Q', title='Energy (MW)', stack='zero'),
         color=alt.Color('Type:N', 
                         scale=alt.Scale(domain=list(color_map.keys()), range=list(color_map.values())),
                         legend=alt.Legend(title="Energy Type and Source")  # Custom legend title
