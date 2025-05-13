@@ -6,7 +6,7 @@ def create_renewables_plot(df):
 
     df_long = df.reset_index().melt(
         id_vars=["datetime", "Source"],
-        value_vars=["solar", "wind_onshore", "wind_offshore"],
+        value_vars=["solar", "wind_onshore", "wind_offshore", "load"],
         var_name="Energy Type",
         value_name="Value"
     )
@@ -22,6 +22,8 @@ def create_renewables_plot(df):
         "Predicted Wind Onshore": "salmon",
         "Measured Wind Offshore": "darkgreen",
         "Predicted Wind Offshore": "darkred",
+        "Measured Load": "black",
+        "Predicted Load": "gray",
     }
 
     chart = alt.Chart(df_long).mark_area(opacity=0.5).encode(

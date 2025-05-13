@@ -7,13 +7,20 @@ from renewables_plot import create_renewables_plot
 
 with st.sidebar:
     st.title("About")
-    st.text("This Streamlit app visualizes the predicted energy spot price of diffrent countries." \
-    "Load, renewable energy generation such as solar and wind (offshore and onshore) are used to make those predictions." \
-    "Diffrent models are used for the predictions depending on the selected country." \
-    "Feature engineering was performed to optimize the models performance." \
-    "The data is obtained via API requests from Energy-Charts.info, using data licensed under CC BY 4.0.")
-    
-    st.write("Created in :streamlit: by Tara Sassel")
+    about_text = (
+        "This Streamlit app visualizes the predicted energy spot price of different countries. "
+        "Load and renewable energy generation — such as solar and wind (offshore and onshore) — are used to make those predictions. "
+        "Different models are used for the predictions depending on the selected country. "
+        "Feature engineering was performed to optimize the model's performance. "
+        "The data is obtained via API requests from Energy-Charts.info, using data licensed under CC BY 4.0."
+    )
+    st.write("")
+    st.write("")
+    st.markdown(f"<div style='text-align: justify'>{about_text}</div>", unsafe_allow_html=True)
+    st.write("")
+    st.markdown("Created in :streamlit: by Tara Sassel")
+    st.write("Temporary note: There was an issue with the API between the 9th and the 12th of May.")
+
 
 st.title("Energy Spot Price Prediction")
 
