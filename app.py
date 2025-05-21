@@ -19,7 +19,7 @@ with st.sidebar:
     st.markdown(f"<div style='text-align: justify'>{about_text}</div>", unsafe_allow_html=True)
     st.write("")
     st.markdown("Created in :streamlit: by Tara Sassel")
-    st.write("Temporary note: There was an issue with the API between the 9th and the 12th of May.")
+    # st.write("Temporary note: There was an issue with the API between the 9th and the 12th of May.")
 
 
 st.title("Energy Spot Price Prediction")
